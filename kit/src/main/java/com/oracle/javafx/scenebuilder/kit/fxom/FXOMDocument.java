@@ -67,6 +67,7 @@ public class FXOMDocument {
     private SampleDataGenerator sampleDataGenerator;
     private FXOMObject fxomRoot;
     private Object sceneGraphRoot;
+    private Node displayRoot;
     private final SimpleIntegerProperty sceneGraphRevision = new SimpleIntegerProperty();
     private final SimpleIntegerProperty cssRevision = new SimpleIntegerProperty();
     private SceneGraphHolder sceneGraphHolder;
@@ -197,12 +198,28 @@ public class FXOMDocument {
         this.sceneGraphRoot = sceneGraphRoot;
     }
 
+    void updateDisplayRoot() {
+        this.displayRoot = null;
+    }
+
     public Object getSceneGraphRoot() {
         return sceneGraphRoot;
     }
 
     void setSceneGraphRoot(Object sceneGraphRoot) {
         this.sceneGraphRoot = sceneGraphRoot;
+    }
+
+    public Node getDisplayRoot() {
+        return displayRoot;
+    }
+
+    void setDisplayRoot(Node displayRoot) {
+        this.displayRoot = displayRoot;
+    }
+
+    public Object getDisplayRootOrSceneGraphRoot() {
+        return displayRoot != null ? displayRoot : sceneGraphRoot;
     }
 
     public String getFxmlText() {

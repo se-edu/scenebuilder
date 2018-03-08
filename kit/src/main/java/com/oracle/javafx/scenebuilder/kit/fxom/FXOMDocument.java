@@ -55,6 +55,7 @@ import com.oracle.javafx.scenebuilder.kit.util.URLUtils;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.stage.Window;
 
 /**
  *
@@ -207,6 +208,12 @@ public class FXOMDocument {
             Scene scene = (Scene) sceneGraphRoot;
             this.displayRoot = scene.getRoot();
             scene.setRoot(new Pane());
+        } else if (sceneGraphRoot instanceof Window) {
+            Window window = (Window) sceneGraphRoot;
+            if (window.getScene() != null) {
+                this.displayRoot = window.getScene().getRoot();
+                window.getScene().setRoot(new Pane());
+            }
         }
     }
 

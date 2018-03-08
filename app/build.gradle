@@ -28,7 +28,7 @@ task run (dependsOn: assemble, overwrite: true) {
     doLast {
         String jarPath = relativePath(new File(libsDir, shadowJar.baseName + "-" + version + "-all.jar"))
         javaexec
-                { main = '-jar'; args jarPath }
+                { main = '-jar'; args jarPath; enableAssertions = true }
     }
 }
 

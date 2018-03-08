@@ -53,6 +53,8 @@ import com.oracle.javafx.scenebuilder.kit.fxom.sampledata.SampleDataGenerator;
 import com.oracle.javafx.scenebuilder.kit.util.Deprecation;
 import com.oracle.javafx.scenebuilder.kit.util.URLUtils;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 
 /**
  *

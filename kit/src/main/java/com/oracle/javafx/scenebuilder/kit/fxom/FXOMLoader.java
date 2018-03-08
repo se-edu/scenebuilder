@@ -39,6 +39,8 @@ import com.oracle.javafx.scenebuilder.kit.util.Deprecation;
 import com.sun.javafx.fxml.LoadListener;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 
 import javax.xml.stream.XMLStreamException;
 import java.io.ByteArrayInputStream;
@@ -112,6 +114,12 @@ class FXOMLoader implements LoadListener {
     private void setSceneGraphRoot(Object sceneGraphRoot) {
         document.setSceneGraphRoot(sceneGraphRoot);
         document.setDisplayNode(null);
+
+        if (sceneGraphRoot instanceof Scene) {
+            Scene scene = (Scene) sceneGraphRoot;
+            document.setDisplayNode(scene.getRoot());
+            scene.setRoot(new Pane()); // ensure displayNode is only part of one scene
+        }
     }
 
     public FXOMDocument getDocument() {

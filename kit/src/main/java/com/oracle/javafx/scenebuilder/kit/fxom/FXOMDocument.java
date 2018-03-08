@@ -53,6 +53,8 @@ import com.oracle.javafx.scenebuilder.kit.fxom.sampledata.SampleDataGenerator;
 import com.oracle.javafx.scenebuilder.kit.util.Deprecation;
 import com.oracle.javafx.scenebuilder.kit.util.URLUtils;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 
 /**
  *
@@ -200,6 +202,12 @@ public class FXOMDocument {
 
     void updateDisplayRoot() {
         this.displayRoot = null;
+
+        if (sceneGraphRoot instanceof Scene) {
+            Scene scene = (Scene) sceneGraphRoot;
+            this.displayRoot = scene.getRoot();
+            scene.setRoot(new Pane());
+        }
     }
 
     public Object getSceneGraphRoot() {

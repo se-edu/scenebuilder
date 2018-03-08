@@ -38,6 +38,8 @@ import com.oracle.javafx.scenebuilder.kit.metadata.util.PropertyName;
 import com.oracle.javafx.scenebuilder.kit.util.Deprecation;
 import com.sun.javafx.fxml.LoadListener;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 
 import javax.xml.stream.XMLStreamException;
 import java.io.ByteArrayInputStream;

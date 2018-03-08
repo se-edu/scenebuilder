@@ -58,6 +58,8 @@ import com.oracle.javafx.scenebuilder.kit.metadata.util.PropertyName;
 
 import javafx.scene.Scene;
 import javafx.scene.control.SelectionMode;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -303,6 +305,8 @@ public class Metadata {
             new ComponentClassMetadata(javafx.scene.LightBase.class, NodeMetadata);
     private final ComponentClassMetadata Shape3DMetadata = 
             new ComponentClassMetadata(javafx.scene.shape.Shape3D.class, NodeMetadata);
+    private final ComponentClassMetadata WindowMetadata =
+            new ComponentClassMetadata(Window.class, null);
 
 
 
@@ -420,6 +424,8 @@ public class Metadata {
             new ComponentClassMetadata(javafx.scene.control.SplitMenuButton.class, MenuButtonMetadata);
     private final ComponentClassMetadata SplitPaneMetadata = 
             new ComponentClassMetadata(javafx.scene.control.SplitPane.class, ControlMetadata);
+    private final ComponentClassMetadata StageMetadata =
+            new ComponentClassMetadata(Stage.class, WindowMetadata);
     private final ComponentClassMetadata TabMetadata = 
             new ComponentClassMetadata(javafx.scene.control.Tab.class, null);
     private final ComponentClassMetadata TabPaneMetadata = 
@@ -558,6 +564,8 @@ public class Metadata {
             new PropertyName("alternativeColumnFillVisible");
     private final PropertyName alternativeRowFillVisibleName = 
             new PropertyName("alternativeRowFillVisible");
+    private final PropertyName alwaysOnTopName =
+            new PropertyName("alwaysOnTop");
     private final PropertyName anchorLocationName = 
             new PropertyName("anchorLocation");
     private final PropertyName anchorXName = 
@@ -760,6 +768,10 @@ public class Metadata {
             new PropertyName("fontSmoothingType");
     private final PropertyName forceZeroInRangeName = 
             new PropertyName("forceZeroInRange");
+    private final PropertyName fullScreenName =
+            new PropertyName("fullScreen");
+    private final PropertyName fullScreenExitHintName =
+            new PropertyName("fullScreenExitHint");
     private final PropertyName gapStartAndEndName = 
             new PropertyName("gapStartAndEnd");
     private final PropertyName graphicName = 
@@ -798,6 +810,8 @@ public class Metadata {
             new PropertyName("htmlText");
     private final PropertyName hvalueName = 
             new PropertyName("hvalue");
+    private final PropertyName iconifiedName =
+            new PropertyName("iconified");
     private final PropertyName idName = 
             new PropertyName("id");
     private final PropertyName imageName = 
@@ -854,6 +868,8 @@ public class Metadata {
             new PropertyName("maxPageIndicatorCount");
     private final PropertyName maxWidthName = 
             new PropertyName("maxWidth");
+    private final PropertyName maximizedName =
+            new PropertyName("maximized");
     private final PropertyName menusName = 
             new PropertyName("menus");
     private final PropertyName meshName = 
@@ -1084,6 +1100,8 @@ public class Metadata {
             new PropertyName("scaleY");
     private final PropertyName scaleZName = 
             new PropertyName("scaleZ");
+    private final PropertyName sceneName =
+            new PropertyName("scene");
     private final PropertyName scopeName = 
             new PropertyName("scope");
     private final PropertyName scrollLeftName = 
@@ -1638,6 +1656,12 @@ public class Metadata {
                 true, /* readWrite */
                 true, /* defaultValue */
                 new InspectorPath("Properties", "Specific", 94));
+    private final ValuePropertyMetadata alwaysOnTopPropertyMetadata =
+            new BooleanPropertyMetadata(
+                alwaysOnTopName,
+                true, /* readWrite */
+                false, /* defaultValue */
+                new InspectorPath("Layout", "Extras", 9));
     private final ValuePropertyMetadata anchorLocationPropertyMetadata =
             new EnumerationPropertyMetadata(
                 anchorLocationName,
@@ -2363,6 +2387,18 @@ public class Metadata {
                 true, /* readWrite */
                 true, /* defaultValue */
                 new InspectorPath("Properties", "Specific", 122));
+    private final ValuePropertyMetadata fullScreenPropertyMetadata =
+            new BooleanPropertyMetadata(
+                fullScreenName,
+                true, /* readWrite */
+                false, /* defaultValue */
+                new InspectorPath("Layout", "Extras", 10));
+    private final ValuePropertyMetadata fullScreenExitHintPropertyMetadata =
+            new StringPropertyMetadata(
+                fullScreenExitHintName,
+                true, /* readWrite */
+                "", /* defaultValue */
+                new InspectorPath("Layout", "Extras", 11));
     private final ValuePropertyMetadata gapStartAndEndPropertyMetadata =
             new BooleanPropertyMetadata(
                 gapStartAndEndName,
@@ -2511,6 +2547,12 @@ public class Metadata {
                 true, /* readWrite */
                 0.0, /* defaultValue */
                 new InspectorPath("Properties", "Specific", 106));
+    private final ValuePropertyMetadata iconifiedPropertyMetadata =
+            new BooleanPropertyMetadata(
+                iconifiedName,
+                true, /* readWrite */
+                false, /* defaultValue */
+                new InspectorPath("Layout", "Extras", 12));
     private final ValuePropertyMetadata idPropertyMetadata =
             new StringPropertyMetadata(
                 idName,
@@ -2730,6 +2772,12 @@ public class Metadata {
                 true, /* readWrite */
                 Double.MAX_VALUE, /* defaultValue */
                 new InspectorPath("Layout", "Size", 5));
+    private final ValuePropertyMetadata maximizedPropertyMetdata =
+            new BooleanPropertyMetadata(
+                maximizedName,
+                true, /* readWrite */
+                false, /* defaultValue */
+                new InspectorPath("Layout", "Extras", 13));
     private final ComponentPropertyMetadata menusPropertyMetadata =
             new ComponentPropertyMetadata(
                 menusName,
@@ -3543,6 +3591,11 @@ public class Metadata {
                 true, /* readWrite */
                 1.0, /* defaultValue */
                 new InspectorPath("Layout", "Transforms", 4));
+    private final ComponentPropertyMetadata scene_stage_PropertyMetadata =
+            new ComponentPropertyMetadata(
+                    sceneName,
+                    SceneMetadata,
+                    false);
     private final ComponentPropertyMetadata scopePropertyMetadata =
             new ComponentPropertyMetadata(
                 scopeName,
@@ -4901,6 +4954,7 @@ public class Metadata {
         componentClassMap.put(StackPaneMetadata.getKlass(), StackPaneMetadata);
         componentClassMap.put(StackedAreaChartMetadata.getKlass(), StackedAreaChartMetadata);
         componentClassMap.put(StackedBarChartMetadata.getKlass(), StackedBarChartMetadata);
+        componentClassMap.put(StageMetadata.getKlass(), StageMetadata);
         componentClassMap.put(SubSceneMetadata.getKlass(), SubSceneMetadata);
         componentClassMap.put(SwingNodeMetadata.getKlass(), SwingNodeMetadata);
         componentClassMap.put(TabMetadata.getKlass(), TabMetadata);
@@ -4927,6 +4981,7 @@ public class Metadata {
         componentClassMap.put(VLineToMetadata.getKlass(), VLineToMetadata);
         componentClassMap.put(ValueAxisMetadata.getKlass(), ValueAxisMetadata);
         componentClassMap.put(WebViewMetadata.getKlass(), WebViewMetadata);
+        componentClassMap.put(WindowMetadata.getKlass(), WindowMetadata);
         componentClassMap.put(XYChartMetadata.getKlass(), XYChartMetadata);
         componentClassMap.put(IncludeElementMetadata.getKlass(), IncludeElementMetadata);
 
@@ -5760,6 +5815,19 @@ public class Metadata {
         StackedBarChartMetadata.getProperties().add(categoryGapPropertyMetadata);
         StackedBarChartMetadata.getProperties().add(styleClass_c12_PropertyMetadata);
 
+        StageMetadata.getProperties().add(alwaysOnTopPropertyMetadata);
+        StageMetadata.getProperties().add(scene_stage_PropertyMetadata);
+        StageMetadata.getProperties().add(fullScreenPropertyMetadata);
+        StageMetadata.getProperties().add(fullScreenExitHintPropertyMetadata);
+        StageMetadata.getProperties().add(iconifiedPropertyMetadata);
+        StageMetadata.getProperties().add(maxHeight_MAX_PropertyMetadata);
+        StageMetadata.getProperties().add(maximizedPropertyMetdata);
+        StageMetadata.getProperties().add(maxWidth_MAX_PropertyMetadata);
+        StageMetadata.getProperties().add(minHeight_0_PropertyMetadata);
+        StageMetadata.getProperties().add(minWidth_0_PropertyMetadata);
+        StageMetadata.getProperties().add(resizable_Boolean_PropertyMetadata);
+        StageMetadata.getProperties().add(titlePropertyMetadata);
+
         SubSceneMetadata.getProperties().add(accessibleRole_NODE_PropertyMetadata);
         SubSceneMetadata.getProperties().add(fill_NULL_PropertyMetadata);
         SubSceneMetadata.getProperties().add(height_Double_0_PropertyMetadata);
@@ -6011,6 +6079,13 @@ public class Metadata {
         WebViewMetadata.getProperties().add(styleClass_c48_PropertyMetadata);
         WebViewMetadata.getProperties().add(width_Double_ro_PropertyMetadata);
         WebViewMetadata.getProperties().add(zoomPropertyMetadata);
+
+        WindowMetadata.getProperties().add(onCloseRequestPropertyMetadata);
+        WindowMetadata.getProperties().add(onHiddenPropertyMetadata);
+        WindowMetadata.getProperties().add(onHidingPropertyMetadata);
+        WindowMetadata.getProperties().add(onShowingPropertyMetadata);
+        WindowMetadata.getProperties().add(onShownPropertyMetadata);
+        WindowMetadata.getProperties().add(opacityPropertyMetadata);
 
         XYChartMetadata.getProperties().add(alternativeColumnFillVisiblePropertyMetadata);
         XYChartMetadata.getProperties().add(alternativeRowFillVisiblePropertyMetadata);

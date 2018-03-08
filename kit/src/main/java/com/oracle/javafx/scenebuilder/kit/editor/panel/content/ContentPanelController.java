@@ -90,6 +90,7 @@ import com.oracle.javafx.scenebuilder.kit.editor.EditorPlatform.Theme;
 import com.oracle.javafx.scenebuilder.kit.editor.drag.source.AbstractDragSource;
 import com.oracle.javafx.scenebuilder.kit.editor.drag.target.AbstractDropTarget;
 import com.oracle.javafx.scenebuilder.kit.editor.panel.content.driver.SceneDriver;
+import com.oracle.javafx.scenebuilder.kit.editor.panel.content.driver.WindowDriver;
 import com.oracle.javafx.scenebuilder.kit.i18n.I18N;
 import com.oracle.javafx.scenebuilder.kit.editor.images.ImageUtils;
 import com.oracle.javafx.scenebuilder.kit.editor.panel.content.driver.AbstractDriver;
@@ -126,6 +127,7 @@ import com.oracle.javafx.scenebuilder.kit.fxom.FXOMInstance;
 import com.oracle.javafx.scenebuilder.kit.fxom.FXOMObject;
 import com.oracle.javafx.scenebuilder.kit.metadata.util.DesignHierarchyMask;
 import javafx.scene.SubScene;
+import javafx.stage.Window;
 
 /**
  * This class creates and controls the <b>Content Panel</b> of Scene Builder Kit.
@@ -988,6 +990,8 @@ public class ContentPanelController extends AbstractFxmlPanelController
             result = new GenericDriver(this);
         } else if (sceneGraphObject instanceof Scene) {
             result = new SceneDriver(this);
+        } else if (sceneGraphObject instanceof Window) {
+            result = new WindowDriver(this);
         } else {
             result = null;
         }

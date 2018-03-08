@@ -41,6 +41,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.stage.Window;
 
 import javax.xml.stream.XMLStreamException;
 import java.io.ByteArrayInputStream;
@@ -119,6 +120,12 @@ class FXOMLoader implements LoadListener {
             Scene scene = (Scene) sceneGraphRoot;
             document.setDisplayNode(scene.getRoot());
             scene.setRoot(new Pane()); // ensure displayNode is only part of one scene
+        } else if (sceneGraphRoot instanceof Window) {
+            Window window = (Window) sceneGraphRoot;
+            if (window.getScene() != null) {
+                document.setDisplayNode(window.getScene().getRoot());
+                window.getScene().setRoot(new Pane()); // ensure displayNode is only part of one scene
+            }
         }
     }
 

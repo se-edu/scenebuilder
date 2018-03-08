@@ -91,6 +91,7 @@ class FXOMLoader implements LoadListener {
             assert is.markSupported();
             is.reset();
             document.setSceneGraphRoot(fxmlLoader.load(is));
+            document.updateDisplayRoot();
         } catch (RuntimeException | IOException x) {
             if (x.getCause().getClass() == XMLStreamException.class) {
                 handleUnsupportedCharset(x);

@@ -64,6 +64,7 @@ class FXOMRefresher {
             final TransientStateBackup backup = new TransientStateBackup(document);
             // if the refresh should not take place (e.g. due to an error), remove a property from intrinsic
             if (newDocument.getSceneGraphRoot() == null && newDocument.getFxomRoot() == null) {
+                document.setDisplayRoot(null);
                 removeIntrinsicProperty(document);
             } else {
                 refreshDocument(document, newDocument);
@@ -110,6 +111,7 @@ class FXOMRefresher {
     private void refreshDocument(FXOMDocument currentDocument, FXOMDocument newDocument) {
         // Transfers scene graph object from newDocument to currentDocument
         currentDocument.setSceneGraphRoot(newDocument.getSceneGraphRoot());
+        currentDocument.setDisplayRoot(newDocument.getDisplayRoot());
         // Simulates Scene's behavior : automatically adds "root" styleclass if
         // if the scene graph root is a Parent instance
         if (currentDocument.getSceneGraphRoot() instanceof Parent) {

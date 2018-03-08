@@ -287,7 +287,7 @@ public final class PreviewWindowController extends AbstractWindowController {
                         throw new RuntimeException("Bug in PreviewWindowController::requestUpdate", ex); //NOI18N
                     }
 
-                    Object sceneGraphRoot = clone.getSceneGraphRoot();
+                    Object sceneGraphRoot = clone.getDisplayRootOrSceneGraphRoot();
                     themeStyleSheetString = editorControllerTheme.getStylesheetURL();
 
                     if (sceneGraphRoot instanceof Parent) {

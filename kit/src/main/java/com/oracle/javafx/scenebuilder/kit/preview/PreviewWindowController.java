@@ -70,7 +70,6 @@ import javafx.scene.transform.Scale;
 import javafx.scene.transform.Translate;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 
 /**
@@ -287,7 +286,7 @@ public final class PreviewWindowController extends AbstractWindowController {
                         throw new RuntimeException("Bug in PreviewWindowController::requestUpdate", ex); //NOI18N
                     }
 
-                    Object sceneGraphRoot = clone.getSceneGraphRoot();
+                    Object sceneGraphRoot = clone.getDisplayNodeOrSceneGraphRoot();
                     themeStyleSheetString = editorControllerTheme.getStylesheetURL();
 
                     if (sceneGraphRoot instanceof Parent) {

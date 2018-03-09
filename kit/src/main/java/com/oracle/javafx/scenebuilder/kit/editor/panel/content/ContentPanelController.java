@@ -405,10 +405,8 @@ public class ContentPanelController extends AbstractFxmlPanelController
             if (sceneGraphObject instanceof Tab) {
                 final Tab tab = (Tab) sceneGraphObject;
                 final TabPane tabPane = tab.getTabPane();
-                // Tab will not have any tabPane if it is the document root
-                if (tabPane != null) {
-                    tabPane.getSelectionModel().select(tab);
-                }
+                assert tabPane != null;
+                tabPane.getSelectionModel().select(tab);
             } else if (sceneGraphObject instanceof TitledPane) {
                 final TitledPane titledPane = (TitledPane) sceneGraphObject;
                 if (titledPane.getParent() instanceof Accordion) {
@@ -455,7 +453,7 @@ public class ContentPanelController extends AbstractFxmlPanelController
         
         return result;
     }
-
+    
     public FXOMObject pick(FXOMDocument fxomDocument, double sceneX, double sceneY, Set<FXOMObject> excludes) {
         assert fxomDocument != null;
 
@@ -463,9 +461,9 @@ public class ContentPanelController extends AbstractFxmlPanelController
             return null;
         }
 
-        Node displayRoot = fxomDocument.getDisplayRoot();
-        if (displayRoot != null) {
-            FXOMObject startObject = fxomDocument.getFxomRoot().searchWithSceneGraphObject(displayRoot);
+        Node displayNode = fxomDocument.getDisplayNode();
+        if (displayNode != null) {
+            FXOMObject startObject = fxomDocument.getFxomRoot().searchWithSceneGraphObject(displayNode);
             if (startObject == null || excludes.contains(startObject)) {
                 return null;
             }
@@ -478,7 +476,7 @@ public class ContentPanelController extends AbstractFxmlPanelController
 
         return pick(fxomDocument.getFxomRoot(), sceneX, sceneY, excludes);
     }
-
+    
     /**
      * Returns the topmost FXOMObject at (sceneX, sceneY) but ignoring
      * objects from the exclude set and starting the search from startObject.
@@ -734,7 +732,7 @@ public class ContentPanelController extends AbstractFxmlPanelController
         } else if (fxomDocument.getFxomRoot() == null) {
             result = true;
         } else {
-            result = fxomDocument.getDisplayRootOrSceneGraphRoot() instanceof Node
+            result = fxomDocument.getDisplayNodeOrSceneGraphRoot() instanceof Node
                     && workspaceController.getLayoutException() == null;
         }
         

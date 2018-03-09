@@ -564,6 +564,8 @@ public class Metadata {
             new PropertyName("alternativeColumnFillVisible");
     private final PropertyName alternativeRowFillVisibleName = 
             new PropertyName("alternativeRowFillVisible");
+    private final PropertyName alwaysOnTopName =
+            new PropertyName("alwaysOnTop");
     private final PropertyName anchorLocationName = 
             new PropertyName("anchorLocation");
     private final PropertyName anchorXName = 
@@ -766,6 +768,8 @@ public class Metadata {
             new PropertyName("fontSmoothingType");
     private final PropertyName forceZeroInRangeName = 
             new PropertyName("forceZeroInRange");
+    private final PropertyName fullScreenName =
+            new PropertyName("fullScreen");
     private final PropertyName fullScreenExitHintName =
             new PropertyName("fullScreenExitHint");
     private final PropertyName gapStartAndEndName = 
@@ -806,6 +810,8 @@ public class Metadata {
             new PropertyName("htmlText");
     private final PropertyName hvalueName = 
             new PropertyName("hvalue");
+    private final PropertyName iconifiedName =
+            new PropertyName("iconified");
     private final PropertyName idName = 
             new PropertyName("id");
     private final PropertyName imageName = 
@@ -862,6 +868,8 @@ public class Metadata {
             new PropertyName("maxPageIndicatorCount");
     private final PropertyName maxWidthName = 
             new PropertyName("maxWidth");
+    private final PropertyName maximizedName =
+            new PropertyName("maximized");
     private final PropertyName menusName = 
             new PropertyName("menus");
     private final PropertyName meshName = 
@@ -1648,6 +1656,12 @@ public class Metadata {
                 true, /* readWrite */
                 true, /* defaultValue */
                 new InspectorPath("Properties", "Specific", 94));
+    private final ValuePropertyMetadata alwaysOnTopPropertyMetadata =
+            new BooleanPropertyMetadata(
+                alwaysOnTopName,
+                true, /* readWrite */
+                false, /* defaultValue */
+                new InspectorPath("Layout", "Extras", 9));
     private final ValuePropertyMetadata anchorLocationPropertyMetadata =
             new EnumerationPropertyMetadata(
                 anchorLocationName,
@@ -2373,12 +2387,18 @@ public class Metadata {
                 true, /* readWrite */
                 true, /* defaultValue */
                 new InspectorPath("Properties", "Specific", 122));
+    private final ValuePropertyMetadata fullScreenPropertyMetadata =
+            new BooleanPropertyMetadata(
+                fullScreenName,
+                true, /* readWrite */
+                false, /* defaultValue */
+                new InspectorPath("Layout", "Extras", 10));
     private final ValuePropertyMetadata fullScreenExitHintPropertyMetadata =
             new StringPropertyMetadata(
                 fullScreenExitHintName,
                 true, /* readWrite */
                 "", /* defaultValue */
-                new InspectorPath("Properties", "Specific", 20));
+                new InspectorPath("Layout", "Extras", 11));
     private final ValuePropertyMetadata gapStartAndEndPropertyMetadata =
             new BooleanPropertyMetadata(
                 gapStartAndEndName,
@@ -2527,6 +2547,12 @@ public class Metadata {
                 true, /* readWrite */
                 0.0, /* defaultValue */
                 new InspectorPath("Properties", "Specific", 106));
+    private final ValuePropertyMetadata iconifiedPropertyMetadata =
+            new BooleanPropertyMetadata(
+                iconifiedName,
+                true, /* readWrite */
+                false, /* defaultValue */
+                new InspectorPath("Layout", "Extras", 12));
     private final ValuePropertyMetadata idPropertyMetadata =
             new StringPropertyMetadata(
                 idName,
@@ -2746,6 +2772,12 @@ public class Metadata {
                 true, /* readWrite */
                 Double.MAX_VALUE, /* defaultValue */
                 new InspectorPath("Layout", "Size", 5));
+    private final ValuePropertyMetadata maximizedPropertyMetdata =
+            new BooleanPropertyMetadata(
+                maximizedName,
+                true, /* readWrite */
+                false, /* defaultValue */
+                new InspectorPath("Layout", "Extras", 13));
     private final ComponentPropertyMetadata menusPropertyMetadata =
             new ComponentPropertyMetadata(
                 menusName,
@@ -5783,9 +5815,13 @@ public class Metadata {
         StackedBarChartMetadata.getProperties().add(categoryGapPropertyMetadata);
         StackedBarChartMetadata.getProperties().add(styleClass_c12_PropertyMetadata);
 
+        StageMetadata.getProperties().add(alwaysOnTopPropertyMetadata);
         StageMetadata.getProperties().add(scene_stage_PropertyMetadata);
+        StageMetadata.getProperties().add(fullScreenPropertyMetadata);
         StageMetadata.getProperties().add(fullScreenExitHintPropertyMetadata);
+        StageMetadata.getProperties().add(iconifiedPropertyMetadata);
         StageMetadata.getProperties().add(maxHeight_MAX_PropertyMetadata);
+        StageMetadata.getProperties().add(maximizedPropertyMetdata);
         StageMetadata.getProperties().add(maxWidth_MAX_PropertyMetadata);
         StageMetadata.getProperties().add(minHeight_0_PropertyMetadata);
         StageMetadata.getProperties().add(minWidth_0_PropertyMetadata);

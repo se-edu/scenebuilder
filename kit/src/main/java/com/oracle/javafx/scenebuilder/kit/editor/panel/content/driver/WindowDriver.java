@@ -76,6 +76,20 @@ public class WindowDriver extends AbstractDriver {
 
     @Override
     public boolean intersectsBounds(FXOMObject fxomObject, Bounds bounds) {
-        return false;
+        assert fxomObject.getSceneGraphObject() instanceof Window;
+        DesignHierarchyMask windowDesignHierarchyMask = new DesignHierarchyMask(fxomObject);
+        FXOMObject scene = windowDesignHierarchyMask.getAccessory(DesignHierarchyMask.Accessory.SCENE);
+        if (scene == null) {
+            return false;
+        }
+        assert scene.getSceneGraphObject() instanceof Scene;
+        assert scene instanceof FXOMInstance;
+        DesignHierarchyMask sceneDesignHierarchyMask = new DesignHierarchyMask(scene);
+        FXOMObject root = sceneDesignHierarchyMask.getAccessory(DesignHierarchyMask.Accessory.ROOT);
+        assert root != null;
+        assert root.getSceneGraphObject() instanceof Node;
+        Node rootNode = (Node) root.getSceneGraphObject();
+        Bounds rootNodeBounds = rootNode.localToScene(rootNode.getLayoutBounds(), true /* rootScene */);
+        return rootNodeBounds.intersects(bounds);
     }
 }

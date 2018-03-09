@@ -25,10 +25,6 @@ public class SceneDriver extends AbstractDriver {
         super(contentPanelController);
     }
 
-    /*
-     * AbstractDriver
-     */
-
     @Override
     public AbstractHandles<?> makeHandles(FXOMObject fxomObject) {
         assert fxomObject.getSceneGraphObject() instanceof Scene;
@@ -76,6 +72,13 @@ public class SceneDriver extends AbstractDriver {
 
     @Override
     public boolean intersectsBounds(FXOMObject fxomObject, Bounds bounds) {
-        return false;
+        assert fxomObject.getSceneGraphObject() instanceof Scene;
+        DesignHierarchyMask designHierarchyMask = new DesignHierarchyMask(fxomObject);
+        FXOMObject root = designHierarchyMask.getAccessory(DesignHierarchyMask.Accessory.ROOT);
+        assert root != null;
+        assert root.getSceneGraphObject() instanceof Node;
+        Node rootNode = (Node) root.getSceneGraphObject();
+        final Bounds rootNodeBounds = rootNode.localToScene(rootNode.getLayoutBounds(), true /* rootScene */);
+        return rootNodeBounds.intersects(bounds);
     }
 }

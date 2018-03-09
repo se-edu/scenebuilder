@@ -56,7 +56,6 @@ import com.oracle.javafx.scenebuilder.kit.util.Deprecation;
 import com.oracle.javafx.scenebuilder.kit.util.URLUtils;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Tab;
 import javafx.scene.layout.Pane;
 import javafx.stage.Window;
 
@@ -73,7 +72,7 @@ public class FXOMDocument {
     private SampleDataGenerator sampleDataGenerator;
     private FXOMObject fxomRoot;
     private Object sceneGraphRoot;
-    private Node displayRoot;
+    private Node displayNode;
     private ArrayList<String> displayStylesheets = new ArrayList<>();
     private final SimpleIntegerProperty sceneGraphRevision = new SimpleIntegerProperty();
     private final SimpleIntegerProperty cssRevision = new SimpleIntegerProperty();
@@ -203,29 +202,8 @@ public class FXOMDocument {
             this.glue.setRootElement(this.fxomRoot.getGlueElement());
         }
         this.sceneGraphRoot = sceneGraphRoot;
-    }
-
-    void updateDisplayRoot() {
-        this.displayRoot = null;
+        this.displayNode = null;
         this.displayStylesheets.clear();
-
-        if (sceneGraphRoot instanceof Scene) {
-            Scene scene = (Scene) sceneGraphRoot;
-            this.displayRoot = scene.getRoot();
-            displayStylesheets.addAll(scene.getStylesheets());
-            scene.setRoot(new Pane());
-        } else if (sceneGraphRoot instanceof Window) {
-            Window window = (Window) sceneGraphRoot;
-            if (window.getScene() != null) {
-                this.displayRoot = window.getScene().getRoot();
-                displayStylesheets.addAll(window.getScene().getStylesheets());
-                window.getScene().setRoot(new Pane());
-            }
-        } else if (sceneGraphRoot instanceof Tab) {
-            Tab tab = (Tab) sceneGraphRoot;
-            this.displayRoot = tab.getContent();
-            tab.setContent(null);
-        }
     }
 
     public Object getSceneGraphRoot() {
@@ -236,12 +214,11 @@ public class FXOMDocument {
         this.sceneGraphRoot = sceneGraphRoot;
     }
 
-    public Node getDisplayRoot() {
-        return displayRoot;
-    }
-
-    void setDisplayRoot(Node displayRoot) {
-        this.displayRoot = displayRoot;
+    /**
+     * Returns the Node that should be displayed in the editor instead of the scene graph root.
+     */
+    public Node getDisplayNode() {
+        return displayNode;
     }
 
     public List<String> getDisplayStylesheets() {
@@ -253,8 +230,18 @@ public class FXOMDocument {
         this.displayStylesheets.addAll(displayStylesheets);
     }
 
-    public Object getDisplayRootOrSceneGraphRoot() {
-        return displayRoot != null ? displayRoot : sceneGraphRoot;
+    /**
+     * Sets the Node that should be displayed in the editor instead of the scene graph root.
+     */
+    void setDisplayNode(Node displayNode) {
+        this.displayNode = displayNode;
+    }
+
+    /**
+     * Returns the display node if one is set, otherwise returns the scene graph root.
+     */
+    public Object getDisplayNodeOrSceneGraphRoot() {
+        return displayNode != null ? displayNode : sceneGraphRoot;
     }
 
     public String getFxmlText() {

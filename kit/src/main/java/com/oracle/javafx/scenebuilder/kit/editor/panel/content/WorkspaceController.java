@@ -329,7 +329,7 @@ class WorkspaceController {
             statusMessageText = I18N.getString("content.label.status.invitation");
             statusStyleClass = "stage-prompt"; //NOI18N
         } else {
-            final Object userSceneGraph = fxomDocument.getDisplayRootOrSceneGraphRoot();
+            final Object userSceneGraph = fxomDocument.getDisplayNodeOrSceneGraphRoot();
             if (userSceneGraph instanceof Node) {
                 final Node rootNode = (Node) userSceneGraph;
                 assert rootNode.getParent() == null;
@@ -390,7 +390,7 @@ class WorkspaceController {
         if (fxomDocument == null) {
             userSceneGraph = null;
         } else {
-            userSceneGraph = fxomDocument.getDisplayRootOrSceneGraphRoot();
+            userSceneGraph = fxomDocument.getDisplayNodeOrSceneGraphRoot();
         }
         if ((userSceneGraph instanceof Node) && (layoutException == null)) {
             final Node rootNode = (Node) userSceneGraph;

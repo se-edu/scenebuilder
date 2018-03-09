@@ -39,7 +39,9 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -71,6 +73,7 @@ public class FXOMDocument {
     private FXOMObject fxomRoot;
     private Object sceneGraphRoot;
     private Node displayRoot;
+    private ArrayList<String> displayStylesheets = new ArrayList<>();
     private final SimpleIntegerProperty sceneGraphRevision = new SimpleIntegerProperty();
     private final SimpleIntegerProperty cssRevision = new SimpleIntegerProperty();
     private SceneGraphHolder sceneGraphHolder;
@@ -203,15 +206,18 @@ public class FXOMDocument {
 
     void updateDisplayRoot() {
         this.displayRoot = null;
+        this.displayStylesheets.clear();
 
         if (sceneGraphRoot instanceof Scene) {
             Scene scene = (Scene) sceneGraphRoot;
             this.displayRoot = scene.getRoot();
+            displayStylesheets.addAll(scene.getStylesheets());
             scene.setRoot(new Pane());
         } else if (sceneGraphRoot instanceof Window) {
             Window window = (Window) sceneGraphRoot;
             if (window.getScene() != null) {
                 this.displayRoot = window.getScene().getRoot();
+                displayStylesheets.addAll(window.getScene().getStylesheets());
                 window.getScene().setRoot(new Pane());
             }
         }
@@ -231,6 +237,15 @@ public class FXOMDocument {
 
     void setDisplayRoot(Node displayRoot) {
         this.displayRoot = displayRoot;
+    }
+
+    public List<String> getDisplayStylesheets() {
+        return Collections.unmodifiableList(displayStylesheets);
+    }
+
+    void setDisplayStylesheets(List<String> displayStylesheets) {
+        this.displayStylesheets.clear();
+        this.displayStylesheets.addAll(displayStylesheets);
     }
 
     public Object getDisplayRootOrSceneGraphRoot() {

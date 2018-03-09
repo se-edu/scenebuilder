@@ -56,6 +56,7 @@ import com.oracle.javafx.scenebuilder.kit.util.Deprecation;
 import com.oracle.javafx.scenebuilder.kit.util.URLUtils;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Tab;
 import javafx.scene.layout.Pane;
 import javafx.stage.Window;
 
@@ -220,6 +221,10 @@ public class FXOMDocument {
                 displayStylesheets.addAll(window.getScene().getStylesheets());
                 window.getScene().setRoot(new Pane());
             }
+        } else if (sceneGraphRoot instanceof Tab) {
+            Tab tab = (Tab) sceneGraphRoot;
+            this.displayRoot = tab.getContent();
+            tab.setContent(null);
         }
     }
 

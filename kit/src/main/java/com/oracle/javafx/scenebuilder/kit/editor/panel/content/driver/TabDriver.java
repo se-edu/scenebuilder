@@ -37,12 +37,14 @@ import com.oracle.javafx.scenebuilder.kit.editor.panel.content.ContentPanelContr
 import com.oracle.javafx.scenebuilder.kit.editor.panel.content.driver.handles.AbstractHandles;
 import com.oracle.javafx.scenebuilder.kit.editor.panel.content.driver.handles.TabHandles;
 import com.oracle.javafx.scenebuilder.kit.editor.panel.content.driver.pring.AbstractPring;
+import com.oracle.javafx.scenebuilder.kit.editor.panel.content.driver.pring.NodePring;
 import com.oracle.javafx.scenebuilder.kit.editor.panel.content.driver.pring.TabPring;
 import com.oracle.javafx.scenebuilder.kit.editor.panel.content.driver.resizer.AbstractResizer;
 import com.oracle.javafx.scenebuilder.kit.editor.panel.content.driver.tring.AbstractTring;
 import com.oracle.javafx.scenebuilder.kit.editor.panel.content.driver.tring.TabTring;
 import com.oracle.javafx.scenebuilder.kit.fxom.FXOMInstance;
 import com.oracle.javafx.scenebuilder.kit.fxom.FXOMObject;
+import com.oracle.javafx.scenebuilder.kit.metadata.util.DesignHierarchyMask;
 import com.oracle.javafx.scenebuilder.kit.metadata.util.DesignHierarchyMask.Accessory;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
@@ -74,14 +76,29 @@ public class TabDriver extends AbstractDriver {
         assert dropTarget != null;
         assert dropTarget.getTargetObject() instanceof FXOMInstance;
         assert dropTarget.getTargetObject().getSceneGraphObject() instanceof Tab;
-        return new TabTring(contentPanelController, (FXOMInstance) dropTarget.getTargetObject());
+        Tab tab = (Tab) dropTarget.getTargetObject().getSceneGraphObject();
+        if (tab.getTabPane() != null) {
+            return new TabTring(contentPanelController, (FXOMInstance) dropTarget.getTargetObject());
+        } else {
+            return null;
+        }
     }
 
     @Override
     public AbstractPring<?> makePring(FXOMObject fxomObject) {
         assert fxomObject.getSceneGraphObject() instanceof Tab;
         assert fxomObject instanceof FXOMInstance;
-        return new TabPring(contentPanelController, (FXOMInstance) fxomObject);
+        Tab tab = (Tab) fxomObject.getSceneGraphObject();
+        if (tab.getTabPane() != null) {
+            return new TabPring(contentPanelController, (FXOMInstance) fxomObject);
+        } else {
+            DesignHierarchyMask designHierarchyMask = new DesignHierarchyMask(fxomObject);
+            FXOMObject content = designHierarchyMask.getAccessory(Accessory.CONTENT);
+            assert content != null : "makePring should have only been called if the Tab has a content";
+            assert content instanceof FXOMInstance;
+            assert content.getSceneGraphObject() instanceof Node;
+            return new NodePring(contentPanelController, (FXOMInstance) content);
+        }
     }
     
     @Override

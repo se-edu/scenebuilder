@@ -405,8 +405,10 @@ public class ContentPanelController extends AbstractFxmlPanelController
             if (sceneGraphObject instanceof Tab) {
                 final Tab tab = (Tab) sceneGraphObject;
                 final TabPane tabPane = tab.getTabPane();
-                assert tabPane != null;
-                tabPane.getSelectionModel().select(tab);
+                // Tab will not have any tabPane if it is the document root
+                if (tabPane != null) {
+                    tabPane.getSelectionModel().select(tab);
+                }
             } else if (sceneGraphObject instanceof TitledPane) {
                 final TitledPane titledPane = (TitledPane) sceneGraphObject;
                 if (titledPane.getParent() instanceof Accordion) {

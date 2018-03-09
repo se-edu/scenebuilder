@@ -42,6 +42,7 @@ import javafx.scene.control.SplitPane;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -65,6 +66,7 @@ class FXOMRefresher {
             // if the refresh should not take place (e.g. due to an error), remove a property from intrinsic
             if (newDocument.getSceneGraphRoot() == null && newDocument.getFxomRoot() == null) {
                 document.setDisplayRoot(null);
+                document.setDisplayStylesheets(Collections.emptyList());
                 removeIntrinsicProperty(document);
             } else {
                 refreshDocument(document, newDocument);
@@ -112,6 +114,7 @@ class FXOMRefresher {
         // Transfers scene graph object from newDocument to currentDocument
         currentDocument.setSceneGraphRoot(newDocument.getSceneGraphRoot());
         currentDocument.setDisplayRoot(newDocument.getDisplayRoot());
+        currentDocument.setDisplayStylesheets(newDocument.getDisplayStylesheets());
         // Simulates Scene's behavior : automatically adds "root" styleclass if
         // if the scene graph root is a Parent instance
         if (currentDocument.getSceneGraphRoot() instanceof Parent) {

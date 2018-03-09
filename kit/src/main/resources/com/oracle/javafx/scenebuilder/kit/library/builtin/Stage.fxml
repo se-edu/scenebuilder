@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Scene?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.stage.Stage?>
+
+<Stage>
+    <scene>
+        <Scene>
+            <AnchorPane prefWidth="200" prefHeight="200" />
+        </Scene>
+    </scene>
+</Stage>
